@@ -15,7 +15,7 @@ Você pode instalá-las executando:<br>
 Depois de instalar as dependências, você pode iniciar o projeto com o seguinte comando:<br>
 -> npm run dev
 
-Isso iniciará o projeto e você poderá acessá-lo em http://localhost:3000 no seu navegador.
+Isso iniciará o projeto e você poderá acessá-lo em http://localhost:3000.
 
 --
 
