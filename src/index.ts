@@ -4,7 +4,7 @@ async function appInit() {
   try {
     await initDataBase();
   } catch (error) {
-    console.error("Falha ao iniciar a aplicação:", error);
+    console.error("Failed to init the application:", error);
   }
 }
 

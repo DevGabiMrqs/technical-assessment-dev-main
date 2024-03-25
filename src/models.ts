@@ -13,6 +13,30 @@ import lib from "./lib";
 
 import ObjectId = mongoose.Types.ObjectId;
 
+function validateGeoJSONCoordinates(value: any): boolean {
+  if (!Array.isArray(value)) {
+    return false;
+  }
+  for (const coordinate of value) {
+    if (!Array.isArray(coordinate) || coordinate.length !== 2) {
+      return false;
+    }
+    const [longitude, latitude] = coordinate;
+    if (typeof longitude !== "number" || typeof latitude !== "number") {
+      return false;
+    }
+    if (
+      longitude < -180 ||
+      longitude > 180 ||
+      latitude < -90 ||
+      latitude > 90
+    ) {
+      return false;
+    }
+  }
+  return true;
+}
+
 class Base extends TimeStamps {
   @Prop({ required: true, default: () => new ObjectId().toString() })
   _id: string;
@@ -72,7 +96,14 @@ export class Region extends Base {
   name!: string;
 
   @Prop({ ref: () => User, required: true, type: () => String })
-  user: Ref<User>;
+  user!: Ref<User>;
+
+  @Prop({
+    type: [[Number]],
+    required: true,
+    validate: validateGeoJSONCoordinates,
+  })
+  polygonCoordinates!: number[][];
 }
 
 export const UserModel = getModelForClass(User);
