@@ -8,9 +8,9 @@ const env = {
 const init = async function () {
   try {
     await mongoose.connect(env.MONGO_URI);
-    console.log("Conexão com o MongoDB estabelecida com sucesso");
+    console.log("Connection to MongoDB established successfully");
   } catch (error) {
-    console.error("Erro ao conectar ao MongoDB:", error);
+    console.error("Failed to connect to MongoDB:", error);
     throw error;
   }
 };

@@ -1,4 +1,3 @@
-
 ## Olá bem-vindo a minha API!
 
 ### Baixando o Projeto!
@@ -104,6 +103,4 @@ Em um mundo conectado e globalizado, a geolocalização se torna cada vez mais e
 
 ---
 
-Estamos ansiosos para ver sua implementação e criatividade em ação! Boa sorte e que a força do código esteja com você! 🚀
-=======
-
+# Estamos ansiosos para ver sua implementação e criatividade em ação! Boa sorte e que a força do código esteja com você! 🚀
