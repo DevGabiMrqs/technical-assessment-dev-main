@@ -1,3 +1,24 @@
+## Olá bem-vindo a minha API!
+
+### Baixando o Projeto!
+
+Você pode baixar usando o seguinte comando no seu terminal:<br>
+-> git clone https://github.com/DevGabiMrqs/technical-assessment-dev-main.git
+
+### Inicializando o Projeto!
+
+Antes de iniciar o projeto, certifique-se de ter todas as dependências instaladas.<br>
+
+Você pode instalá-las executando:<br>
+-> npm install
+
+Depois de instalar as dependências, você pode iniciar o projeto com o seguinte comando:<br>
+-> npm run dev
+
+Isso iniciará o projeto e você poderá acessá-lo em http://localhost:3000 no seu navegador.
+
+--
+
 # OZmap Challenge: Construindo a Geolocalização do Futuro
 
 Olá desenvolvedor(a)! Bem-vindo(a) ao Desafio Técnico do OZmap. Este é um projeto que simula um cenário real de nossa empresa, onde você irá desempenhar um papel crucial ao desenvolver uma API RESTful robusta para gerenciar usuários e localizações. Estamos muito animados para ver sua abordagem e solução!
@@ -18,6 +39,7 @@ Em um mundo conectado e globalizado, a geolocalização se torna cada vez mais e
 ## 🔍 **Funcionalidades Esperadas**
 
 ### Usuários
+
 - **CRUD** completo para usuários.
 - Cada usuário deve ter nome, email, endereço e coordenadas.
 - Na criação, o usuário pode fornecer endereço ou coordenadas. Haverá erro caso forneça ambos ou nenhum.
@@ -25,6 +47,7 @@ Em um mundo conectado e globalizado, a geolocalização se torna cada vez mais e
 - Atualização de endereço ou coordenadas deve seguir a mesma lógica.
 
 ### Regiões
+
 - **CRUD** completo para regiões.
 - Uma região é definida como um polígono em GeoJSON, um formato padrão para representar formas geográficas. Cada região tem um nome, um conjunto de coordenadas que formam o polígono, e um usuário que será o dono da região.
 - Listar regiões contendo um ponto específico.
@@ -45,6 +68,7 @@ Em um mundo conectado e globalizado, a geolocalização se torna cada vez mais e
   ```
 
 ### Testes
+
 - Unitários e de integração.
 
 ## 🌟 **Diferenciais**

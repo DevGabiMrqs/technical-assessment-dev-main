@@ -6,7 +6,13 @@ const env = {
 };
 
 const init = async function () {
-  await mongoose.connect(env.MONGO_URI);
+  try {
+    await mongoose.connect(env.MONGO_URI);
+    console.log("Conexão com o MongoDB estabelecida com sucesso");
+  } catch (error) {
+    console.error("Erro ao conectar ao MongoDB:", error);
+    throw error;
+  }
 };
 
-export default init();
+export default init;
