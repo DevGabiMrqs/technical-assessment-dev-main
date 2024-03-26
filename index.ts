@@ -1,4 +1,5 @@
 import express from "express";
+import "./src/index";
 import userRoutes from "./src/routes/userRoutes";
 import regionRoutes from "./src/routes/regionRoutes";
 
