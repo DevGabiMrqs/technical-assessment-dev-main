@@ -1,14 +1,25 @@
 import { Request, Response } from "express";
 import { UserModel } from "../models";
+import UserService from "../services/userService";
+
+const STATUS = {
+  OK: 200,
+  CREATED: 201,
+  UPDATED: 201,
+  NOT_FOUND: 404,
+  BAD_REQUEST: 400,
+  INTERNAL_SERVER_ERROR: 500,
+  DEFAULT_ERROR: 418,
+};
 
 export async function createUser(req: Request, res: Response) {
   try {
     const userData = req.body;
-    const newUser = await UserModel.create(userData);
-    res.status(201).json(newUser);
+    const newUser = await UserService.createUser(userData);
+    res.status(STATUS.CREATED).json(newUser); //continuar
   } catch (error) {
     console.error("Error creating user:", error);
-    res.status(500).json({ message: "Failed to create user" });
+    res.status(500).json({ message: error.message });
   }
 }
 
@@ -60,7 +71,7 @@ export async function deleteUser(req: Request, res: Response) {
     if (!deletedUser) {
       return res.status(404).json({ message: "User not found to delete" });
     }
-    res.sendStatus(204);
+    res.sendStatus(200).json({ message: "User deleted successfully" });
   } catch (error) {
     console.error("Error deleting user:", error);
     res.status(500).json({ message: "Failed to delete user" });

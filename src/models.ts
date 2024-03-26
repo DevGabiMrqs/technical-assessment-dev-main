@@ -62,10 +62,10 @@ export class User extends Base {
   @Prop({ required: true })
   email!: string;
 
-  @Prop({ required: true })
+  @Prop({ required: false })
   address: string;
 
-  @Prop({ required: true, type: () => [Number] })
+  @Prop({ required: false, type: () => [Number] })
   coordinates: [number, number];
 
   @Prop({ required: true, default: [], ref: () => Region, type: () => String })
