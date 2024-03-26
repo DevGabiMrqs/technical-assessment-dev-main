@@ -9,7 +9,7 @@ import { expect, assert } from "chai";
 import "./database";
 import { Region, RegionModel, UserModel } from "./models";
 import GeoLib from "./lib";
-import server from "./server";
+import app from "../index";
 
 describe("Models", () => {
   let user;
@@ -59,6 +59,7 @@ describe("Models", () => {
       const regionData: Omit<Region, "_id"> = {
         user: user._id,
         name: faker.person.fullName(),
+        polygonCoordinates: [],
       };
 
       const [region] = await RegionModel.create([regionData]);
@@ -85,13 +86,13 @@ describe("Models", () => {
   });
 
   it("should return a list of users", async () => {
-    const response = supertest(server).get(`/user`);
+    const response = supertest(app).get(`/user`);
 
     expect(response).to.have.property("status", 200);
   });
 
   it("should return a user", async () => {
-    const response = await supertest(server).get(`/users/${user._id}`);
+    const response = await supertest(app).get(`/users/${user._id}`);
 
     expect(response).to.have.property("status", 200);
   });

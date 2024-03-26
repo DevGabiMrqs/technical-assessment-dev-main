@@ -1,0 +1,53 @@
+<!-- <!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Google Maps</title>
+  </head>
+  <body>
+    <div id="map" style="height: 400px; width: 100%"></div>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGWvk3lA8cubNjtu8-7ghDOwTcc5wR1EY
+      &callback=initMap"
+      async
+      defer
+    ></script>
+    <script src="app.js"></script>
+  </body>
+</html> -->
+
+<!doctype html>
+<html>
+  <head>
+    <title>Simple Marker</title>
+    <script
+      async
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGWvk3lA8cubNjtu8-7ghDOwTcc5wR1EY&callback=console.debug&libraries=maps,marker&v=beta"
+    ></script>
+    <style>
+      gmp-map {
+        height: 100%;
+      }
+
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <gmp-map
+      center="40.12150192260742,-100.45039367675781"
+      zoom="4"
+      map-id="DEMO_MAP_ID"
+    >
+      <gmp-advanced-marker
+        position="40.12150192260742,-100.45039367675781"
+        title="My location"
+      ></gmp-advanced-marker>
+    </gmp-map>
+  </body>
+</html>

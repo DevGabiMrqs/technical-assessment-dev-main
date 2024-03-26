@@ -63,3 +63,63 @@ export async function deleteRegion(req: Request, res: Response) {
     res.status(500).json({ message: "Failed to delete region" });
   }
 }
+
+export async function getRegionsByCoordinates(req: Request, res: Response) {
+  try {
+    const { latitude, longitude } = req.query;
+    if (!latitude || !longitude) {
+      return res
+        .status(400)
+        .json({ message: "Latitude and longitude are required" });
+    }
+    const regions = await RegionModel.find({
+      polygonCoordinates: {
+        $geoIntersects: {
+          $geometry: {
+            type: "Point",
+            coordinates: [
+              parseFloat(longitude.toString()),
+              parseFloat(latitude.toString()),
+            ],
+          },
+        },
+      },
+    }).populate("user");
+    return res.json({ regions });
+  } catch (error) {
+    console.error("Error listing regions:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+}
+
+export async function getNearbyRegion(req: Request, res: Response) {
+  try {
+    const { latitude, longitude, distance } = req.query;
+
+    if (!latitude || !longitude || !distance) {
+      return res
+        .status(400)
+        .json({ message: "Latitude, longitude, and distance are required" });
+    }
+
+    const regions = await RegionModel.find({
+      polygonCoordinates: {
+        $near: {
+          $geometry: {
+            type: "Point",
+            coordinates: [
+              parseFloat(longitude.toString()),
+              parseFloat(latitude.toString()),
+            ],
+          },
+          $maxDistance: parseFloat(distance.toString()),
+        },
+      },
+    }).populate("user");
+
+    return res.json({ regions });
+  } catch (error) {
+    console.error("Error listing regions:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+}
