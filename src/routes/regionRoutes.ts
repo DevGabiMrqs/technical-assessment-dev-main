@@ -1,5 +1,4 @@
 import express, { Request, Response } from "express";
-import { RegionModel } from "../models";
 import {
   createRegion,
   getRegions,

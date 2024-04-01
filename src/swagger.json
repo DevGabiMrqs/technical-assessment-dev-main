@@ -1,0 +1,366 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API DOC TESTE TÉCNICO DevOZ",
+    "description": "Esta API tem como objetivo a manipulação de usuários e regiões",
+    "contact": {
+      "email": "gabrielli_1998@outlook.com"
+    },
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api-docs"
+    }
+  ],
+  "paths": {
+    "/users": {
+      "post": {
+        "summary": "Criar usuário",
+        "description": "Esta rota é responsável por criar um novo usuário",
+        "tags": ["Users"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Usuário criado com sucesso"
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        }
+      },
+      "get": {
+        "summary": "Obter todos os usuários",
+        "description": "Esta rota é responsável por obter todos os usuários",
+        "tags": ["Users"],
+        "responses": {
+          "200": {
+            "description": "Lista de usuários recuperada com sucesso"
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "summary": "Obter usuário por ID",
+        "description": "Esta rota é responsável por obter um usuário específico pelo seu ID",
+        "tags": ["Users"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do usuário a ser obtido",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuário encontrado com sucesso"
+          },
+          "404": {
+            "description": "Usuário não encontrado"
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        }
+      },
+      "put": {
+        "summary": "Atualizar usuário",
+        "description": "Esta rota é responsável por atualizar um usuário existente",
+        "tags": ["Users"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do usuário a ser atualizado",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuário atualizado com sucesso"
+          },
+          "404": {
+            "description": "Usuário não encontrado"
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Excluir usuário",
+        "description": "Esta rota é responsável por excluir um usuário existente",
+        "tags": ["Users"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do usuário a ser excluído",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuário excluído com sucesso"
+          },
+          "404": {
+            "description": "Usuário não encontrado"
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        }
+      }
+    },
+    "/regions": {
+      "post": {
+        "summary": "Criar região",
+        "description": "Esta rota é responsável por criar uma nova região",
+        "tags": ["Regions"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Region"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Região criada com sucesso"
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        }
+      },
+      "get": {
+        "summary": "Obter todas as regiões",
+        "description": "Esta rota é responsável por obter todas as regiões",
+        "tags": ["Regions"],
+        "responses": {
+          "200": {
+            "description": "Lista de regiões recuperada com sucesso"
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        }
+      }
+    },
+    "/regions/contains": {
+      "get": {
+        "summary": "Obter regiões contendo coordenadas",
+        "description": "Esta rota é responsável por obter as regiões que contêm as coordenadas especificadas",
+        "tags": ["Regions"],
+        "parameters": [
+          {
+            "name": "latitude",
+            "in": "query",
+            "description": "Latitude da coordenada",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "longitude",
+            "in": "query",
+            "description": "Longitude da coordenada",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Regiões encontradas com sucesso"
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        }
+      }
+    },
+    "/regions/nearby": {
+      "get": {
+        "summary": "Obter regiões próximas",
+        "description": "Esta rota é responsável por obter as regiões próximas às coordenadas especificadas",
+        "tags": ["Regions"],
+        "parameters": [
+          {
+            "name": "latitude",
+            "in": "query",
+            "description": "Latitude da coordenada",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "longitude",
+            "in": "query",
+            "description": "Longitude da coordenada",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Regiões encontradas com sucesso"
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        }
+      }
+    },
+    "/regions/{id}": {
+      "get": {
+        "summary": "Obter região por ID",
+        "description": "Esta rota é responsável por obter uma região específica pelo seu ID",
+        "tags": ["Regions"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID da região a ser obtida",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Região encontrada com sucesso"
+          },
+          "404": {
+            "description": "Região não encontrada"
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        }
+      },
+      "put": {
+        "summary": "Atualizar região",
+        "description": "Esta rota é responsável por atualizar uma região existente",
+        "tags": ["Regions"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID da região a ser atualizada",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Região atualizada com sucesso"
+          },
+          "404": {
+            "description": "Região não encontrada"
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Excluir região",
+        "description": "Esta rota é responsável por excluir uma região existente",
+        "tags": ["Regions"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID da região a ser excluída",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Região excluída com sucesso"
+          },
+          "404": {
+            "description": "Região não encontrada"
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          }
+        }
+      },
+      "Region": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "user": {
+            "type": "string"
+          },
+          "polygonCoordinates": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
