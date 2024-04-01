@@ -1,7 +1,9 @@
 import express from "express";
 import "./src/index";
+import swaggerUi from "swagger-ui-express";
 import userRoutes from "./src/routes/userRoutes";
 import regionRoutes from "./src/routes/regionRoutes";
+import swaggerDocs from "./src/swagger.json";
 
 const app = express();
 const port = process.env.port || 3000;
@@ -12,6 +14,7 @@ app.get("/", (req, res) => {
   res.send("API is running");
 });
 
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use("/users", userRoutes);
 app.use("/regions", regionRoutes);
 

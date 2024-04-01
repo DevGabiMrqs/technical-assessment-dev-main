@@ -1,49 +1,64 @@
 import { Request, Response } from "express";
-import { UserModel } from "../models";
-import UserService from "../services/userService";
+import UserService from "../services/user.services";
+import { StatusCodes } from "http-status-codes";
+import { startSession } from "mongoose";
 
-const STATUS = {
-  OK: 200,
-  CREATED: 201,
-  UPDATED: 201,
-  NOT_FOUND: 404,
-  BAD_REQUEST: 400,
-  INTERNAL_SERVER_ERROR: 500,
-  DEFAULT_ERROR: 418,
-};
+// const STATUS = {
+//   OK: 200,
+//   CREATED: 201,
+//   UPDATED: 201,
+//   NOT_FOUND: 404,
+//   BAD_REQUEST: 400,
+//   INTERNAL_SERVER_ERROR: 500,
+//   DEFAULT_ERROR: 418,
+// };
 
 export async function createUser(req: Request, res: Response) {
   try {
     const userData = req.body;
     const newUser = await UserService.createUser(userData);
-    res.status(STATUS.CREATED).json(newUser); //continuar
+    return res.status(StatusCodes.CREATED).json(newUser);
   } catch (error) {
     console.error("Error creating user:", error);
-    res.status(500).json({ message: error.message });
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ message: error.message });
   }
 }
 
 export async function getUsers(req: Request, res: Response) {
   try {
-    const users = await UserModel.find();
-    res.json(users);
+    const { page, pageSize } = req.query;
+    const userData = req.body;
+    const paginationOptions = {
+      page: parseInt(page as string, 10) || 1,
+      pageSize: parseInt(pageSize as string, 10) || 10,
+    };
+    const users = await UserService.getUser(userData, paginationOptions);
+    return res.status(StatusCodes.OK).json(users);
   } catch (error) {
     console.error("Error fecthing users", error);
-    res.status(500).json({ message: "Failed to fetch users" });
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ message: "Failed to fetch users" });
   }
 }
 
 export async function getUsersById(req: Request, res: Response) {
   try {
     const { id } = req.params;
-    const user = await UserModel.findById(id);
+    const user = await UserService.getUserById(id);
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ message: "User not found" });
     }
-    res.json(user);
+    return res.json(user);
   } catch (error) {
     console.error("Error fetching user:", error);
-    res.status(500).json({ message: "Failed to fetch user" });
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ message: "Failed to fetch user" });
   }
 }
 
@@ -51,29 +66,43 @@ export async function updateUser(req: Request, res: Response) {
   try {
     const { id } = req.params;
     const updateData = req.body;
-    const updatedUser = await UserModel.findByIdAndUpdate(id, updateData, {
-      new: true,
-    });
+    const session = await startSession();
+    session.startTransaction();
+    const updatedUser = await UserService.updateUser(id, updateData, session);
     if (!updatedUser) {
-      return res.status(404).json({ message: "User not found" });
+      await session.abortTransaction();
+      session.endSession();
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ message: "User not found" });
     }
-    res.json(updatedUser);
+    await session.commitTransaction();
+    session.endSession();
+    return res.json(updatedUser);
   } catch (error) {
     console.log("Error updating user:", error);
-    res.status(500).json({ message: " Failed to update user" });
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ message: " Failed to update user" });
   }
 }
 
 export async function deleteUser(req: Request, res: Response) {
   try {
     const { id } = req.params;
-    const deletedUser = await UserModel.findByIdAndDelete(id);
+    const deletedUser = await UserService.deleteUser(id);
     if (!deletedUser) {
-      return res.status(404).json({ message: "User not found to delete" });
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ message: "User not found to delete" });
     }
-    res.sendStatus(200).json({ message: "User deleted successfully" });
+    return res
+      .sendStatus(StatusCodes.OK)
+      .json({ message: "User deleted successfully" });
   } catch (error) {
     console.error("Error deleting user:", error);
-    res.status(500).json({ message: "Failed to delete user" });
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ message: "Failed to delete user" });
   }
 }

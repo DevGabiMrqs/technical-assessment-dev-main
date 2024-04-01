@@ -7,7 +7,8 @@ import { faker } from "@faker-js/faker";
 import { expect, assert } from "chai";
 
 import "./database";
-import { Region, RegionModel, UserModel } from "./models";
+import { Region, RegionModel } from "../src/models/region.models";
+import { UserModel } from "../src/models/user.models";
 import GeoLib from "./lib";
 import app from "../index";
 

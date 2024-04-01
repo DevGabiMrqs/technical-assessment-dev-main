@@ -1,12 +1,13 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv";
 
-const env = {
-  MONGO_URI: "mongodb://127.0.0.1:27017/oz-tech-test?authSource=admin",
-};
+dotenv.config();
+
+const MONGO_URI = process.env.MONGO_URI;
 
 const init = async function () {
   try {
-    await mongoose.connect(env.MONGO_URI);
+    await mongoose.connect(MONGO_URI);
     console.log("Connection to MongoDB established successfully");
   } catch (error) {
     console.error("Failed to connect to MongoDB:", error);
