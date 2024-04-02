@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { RegionService } from "../services/region.services";
 import { StatusCodes } from "http-status-codes";
 import { startSession } from "mongoose";
-import { json } from "stream/consumers";
 
 const regionService = new RegionService();
 
@@ -21,9 +20,9 @@ export async function createRegion(req: Request, res: Response) {
 
 export async function getRegions(req: Request, res: Response) {
   try {
-    const regionData = req.body;
-    const regions = await regionService.getRegion(regionData);
-    return res.json(regions);
+    const regions = await regionService.getRegion();
+    console.log(regions, "vixi");
+    return res.status(StatusCodes.OK).json({ list: regions });
   } catch (error) {
     console.error("Error fetching regions:", error);
     return res

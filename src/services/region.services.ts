@@ -29,8 +29,9 @@ export class RegionService {
     return region._id;
   }
 
-  async getRegion(regionId: string): Promise<RegionData | null> {
-    return await RegionModel.findById(regionId).lean();
+  async getRegion() {
+    const res = await RegionModel.find();
+    return res;
   }
 
   async getRegionById(regionId: string): Promise<RegionData | null> {
@@ -64,7 +65,7 @@ export class RegionService {
         polygonCoordinates: {
           $geoIntersetics: {
             $geometry: {
-              type: "Polygon",
+              type: "Point",
               coordinates: [
                 [
                   [longitude, latitude],

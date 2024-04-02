@@ -64,7 +64,7 @@ export class UserService {
       new: true,
       session,
     });
-    return user ? user.toObject() : null; //tratr erros em utils
+    return user ? user.toObject() : null;
   }
 
   async deleteUser(userId: string): Promise<UserData | null> {

@@ -35,7 +35,7 @@ export async function getUsers(req: Request, res: Response) {
       pageSize: parseInt(pageSize as string, 10) || 10,
     };
     const users = await UserService.getUser(userData, paginationOptions);
-    return res.status(StatusCodes.OK).json(users);
+    return res.status(StatusCodes.OK).json({ list: users });
   } catch (error) {
     console.error("Error fecthing users", error);
     return res
