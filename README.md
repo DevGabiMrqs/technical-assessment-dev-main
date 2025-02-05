@@ -1,3 +1,22 @@
+## Hello, Welcome to My API!
+
+### Downloading the Project
+
+You can download it using the following command in your terminal:<br>  
+-> `git clone https://github.com/DevGabiMrqs/technical-assessment-dev-main.git`
+
+### Starting the Project
+
+Before starting the project, make sure you have all dependencies installed.<br>  
+
+You can install them by running:<br>  
+-> `npm install`
+
+After installing the dependencies, you can start the project with the following command:<br>  
+-> `npm run dev`
+
+This will start the project, and you can access it at [http://localhost:3000](http://localhost:3000).
+--
 ## Olá bem-vindo a minha API!
 
 ### Baixando o Projeto!
