@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "API DOC TESTE TÉCNICO DevOZ",
+    "title": "API",
     "description": "Esta API tem como objetivo a manipulação de usuários e regiões",
     "contact": {
       "email": "gabrielli_1998@outlook.com"
